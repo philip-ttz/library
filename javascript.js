@@ -40,3 +40,13 @@ function display(){
 document.addEventListener('DOMContentLoaded', () => {
     
 })
+
+function openModal(){
+    document.querySelector(".modaloverlay").style.display = 'flex';
+}
+
+document.querySelector(".modaloverlay").addEventListener('click', function (event){
+    if(event.target === this){
+        this.style.display = 'none';
+    }
+})
