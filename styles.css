@@ -14,6 +14,7 @@ body{
     display: grid;
     grid-template-rows: 1fr 10fr;
     height: 100vh;
+    padding: 0 50px;
 }
 
 header{
@@ -30,13 +31,35 @@ header h1{
     color: #4E484F;
 }
 
-main{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 40px;
-    padding: 40px;
+/* Book Grid */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 20px 0;
 }
 
+/* Book Cards */
+.book-card {
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  height: fit-content;
+}
+
+.book-title {
+  font-size: 1.4rem;
+  margin: 0 0 15px 0;
+  color: #2a5934;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.book-info {
+  margin: 12px 0;
+  font-size: 0.95rem;
+}
 /* From Uiverse.io by iZOXVL */ 
 .boton-elegante {
     padding: 15px 30px;
@@ -78,109 +101,103 @@ main{
     background: #292929;
   }
   
-.modaloverlay{
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  .game-modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    padding: 10px;
+    pointer-events: none;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0,0,0,0.6);
+    transition: opacity 0.4s ease;
+}
+.game-modal.show{
+  opacity: 1;
+  pointer-events: auto;
 }
 
-  .modal{
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 400px;
-    animation: fadeIn 0.3s ease-in-out;
-  }
+/* General form styling */
+#book-form {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to{
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
+h2 {
+  text-align: center;
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 20px;
+}
 
-  .modal form{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
+/* Input fields */
+#book-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
 
-  .modal label{
-    font-weight: bold;
-  }
+/* Checkbox styling */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
 
-  .modal input[type="text"],
-  .modal input[type="number"]{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-  }
+.checkbox-group input {
+  margin-right: 10px;
+}
 
-  .toggle{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.checkbox-group label {
+  font-size: 1em;
+  color: #555;
+}
 
-  .toggle input[type="checkbox"]{
-    display: none;
-  }
+/* Button Group */
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .toggle label{
-    position:relative;
-    width: 50%;
-    height: 25px;
-    background-color: #ccc;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+.btn-group button {
+  padding: 12px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .toggle label::after{
-    content: '';
-    position: relative;
-    width: 21px;
-    height: 21px;
-    background-color: #fff;
-    border-radius: 50%;
-    top: 2px;
-    left: 2px;
-    transition: transform 0.3s ease;
-  }
+/* Submit button styling */
+.btn-group button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
 
-  .toggle input[type="checkbox"]:checked + label{
-    background-color: #4caf50;
-  }
-  toggle input[type="checkbox"]:checked + label::after{
-    transform: translateX(25px);
-  }
+.btn-group button[type="submit"]:hover {
+  background-color: #45a049;
+}
 
-  .modal button{
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+/* Cancel button styling */
+.btn-group button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
 
-  }
-
-  .modal button:hover{
-    background-color: #0056b3;
-  }
+.btn-group button[type="button"]:hover {
+  background-color: #da190b;
+}

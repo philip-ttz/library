@@ -9,15 +9,15 @@ function Book(title, author, pages, read){
 
 function addBookToLibrary(title, author, pages, read){
     const newBook = new Book(title,author,pages,read);
-    myLibrary.push(Book(title,author,pages,read));
+    myLibrary.push(newBook);
 }
 
-Book.prototype.changeReadStatus = function() {
+Book.prototype.toggleRead = function() {
     this.read = !this.read;
-}
+};
 
 function display(){
-    const main = document.getElementById('main');
+    const main = document.getElementById('book-container');
     main.innerHTML = '';
 
     myLibrary.forEach((book, index) =>{
@@ -37,16 +37,42 @@ function display(){
     })
 }
 
+const game_modal= document.querySelector(".game-modal");
+const modal_popup_button= document.querySelector(".boton-elegante");
+const cancel = document.querySelector("#cancel-btn");
+const bookform =document.getElementById('book-form');
 document.addEventListener('DOMContentLoaded', () => {
-    
-})
+    modal_popup_button.addEventListener("click", () => {
+        game_modal.classList.add("show");
+    })
+    cancel.addEventListener("click", () => {
+        game_modal.classList.remove("show");
+    })
 
-function openModal(){
-    document.querySelector(".modaloverlay").style.display = 'flex';
-}
+    bookform.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const pages = parseInt(document.getElementById('pages').value);
+        const read = document.getElementById('read').checked;
 
-document.querySelector(".modaloverlay").addEventListener('click', function (event){
-    if(event.target === this){
-        this.style.display = 'none';
-    }
+        addBookToLibrary(title, author, pages, read);
+        display();
+        game_modal.classList.remove("show");
+        e.target.reset();
+    });
+    document.getElementById('book-container').addEventListener('click', (e) => {
+        const index = e.target.dataset.index;
+        
+        if (e.target.classList.contains('remove-btn')) {
+            myLibrary.splice(index, 1);
+            display();
+        }
+        
+        if (e.target.classList.contains('toggle-btn')) {
+            myLibrary[index].toggleRead();
+            display();
+        }
+    });
 })
